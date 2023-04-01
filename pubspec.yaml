@@ -38,6 +38,8 @@ dependencies:
   get: ^4.6.5
   connectivity: ^3.0.6
   dio: ^5.0.3
+  cached_network_image: ^3.2.3
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'app_constants.dart';
 import 'color_constants.dart';
 import 'dimensions.dart';
 
@@ -33,6 +34,9 @@ class Utility {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  static String getImageFullPath(String path){
+    return AppConstants.imageBasePath + path;
+  }
 
   static Widget buildProgressIndicator() {
     return Container(
