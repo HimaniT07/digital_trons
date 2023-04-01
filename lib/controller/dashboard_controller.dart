@@ -15,6 +15,7 @@ class DashboardController extends BaseController {
   final ScrollController scrollController = ScrollController();
   var isScroll = true;
   var isSearchIconVisible = true.obs;
+  var isGridView = true.obs;
   var prevPage = 1.obs;
   TextEditingController searchTextController = TextEditingController();
 

@@ -26,9 +26,24 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   const Text(AppConstants.dashboardTitle,
                       style: TextStyle(color: ColorConstants.white)),
-                  IconButton(icon: const Icon(Icons.search_rounded,color: Colors.white), onPressed: () {
-                    dashboardController.isSearchIconVisible.value = !dashboardController.isSearchIconVisible.value;
-                  },)
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                            dashboardController.isGridView.value
+                                ? Icons.grid_view_sharp
+                                : Icons.list,
+                            color: Colors.white),
+                        onPressed: () {
+                          dashboardController.isGridView.value =
+                          !dashboardController.isGridView.value;
+                        },
+                      ),
+                      IconButton(icon: const Icon(Icons.search_rounded,color: Colors.white), onPressed: () {
+                        dashboardController.isSearchIconVisible.value = !dashboardController.isSearchIconVisible.value;
+                      },),
+                    ],
+                  )
                 ],
               ) : TextField(
                 autofocus: false,
@@ -61,7 +76,7 @@ class DashboardScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
-                    child: GridView.builder(
+                    child: dashboardController.isGridView.value ? GridView.builder(
                       itemCount:
                       dashboardController.trendingMoviesArr.value.length,
                       controller: dashboardController.scrollController,
@@ -96,6 +111,30 @@ class DashboardScreen extends StatelessWidget {
                           ),
                         );
                       },
+                    ) : ListView.builder(
+                        itemCount: dashboardController.trendingMoviesArr.value.length,
+                        controller: dashboardController.scrollController,
+                        itemBuilder: (context, index) {
+                          final movie = dashboardController.trendingMoviesArr[index];
+                          return Card(
+                            color: ColorConstants.grayE6,
+                            child: ListTile(
+                              title: Text(movie.title ?? ""),
+                              contentPadding:  const EdgeInsets.all(8.0),
+                              leading: CachedNetworkImage(
+                                imageUrl: Utility.getImageFullPath(
+                                    movie.posterPath ?? ""),
+                                fit: BoxFit.fill,
+                                placeholder: (context, url) => const Padding(
+                                  padding: EdgeInsets.all(50.0),
+                                  child: CircularProgressIndicator(),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                              ),
+                            ),
+                          );
+                        }
                     ),
                   ),
                 ],
