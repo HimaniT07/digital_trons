@@ -5,9 +5,12 @@ import 'package:himani_dtron/route/app_pages.dart';
 import 'package:himani_dtron/utils/app_constants.dart';
 import 'package:himani_dtron/utils/color_constants.dart';
 
+import 'network/service_locator.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  setup();
   runApp(const MyApp());
 }
 

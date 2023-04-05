@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
     Dimensions.screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-        color: ColorConstants.white,
+        color: ColorConstants.appColor,
         height: Dimensions.screenHeight,
         width: Dimensions.screenWidth,
         child: Padding(

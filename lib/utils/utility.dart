@@ -1,9 +1,8 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'app_constants.dart';
-import 'color_constants.dart';
-import 'dimensions.dart';
 
 class Utility {
   static Future<bool> isConnected() async {
@@ -22,32 +21,37 @@ class Utility {
     return false;
   }
 
-  static Widget? hideKeyboard(BuildContext context) {
-    FocusScope.of(context).requestFocus(FocusNode());
-    return null;
-  }
-
-  static void snackBar(String msg, BuildContext context) {
-    var snackBar = SnackBar(
-      content: Text(msg),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
   static String getImageFullPath(String path){
     return AppConstants.imageBasePath + path;
   }
 
-  static Widget buildProgressIndicator() {
-    return Container(
-      height: Dimensions.screenHeight,
-      color: ColorConstants.black.withOpacity(0.4),
-      child: const Center(
-        child: CircularProgressIndicator(
-          backgroundColor: ColorConstants.blue,
-          valueColor: AlwaysStoppedAnimation<Color>(ColorConstants.white),
-        ),
+  static bool hasMorePages(currentPage, totalPage) {
+    return currentPage < totalPage;
+  }
+
+
+  static launchTmdbURL(url) async {
+    try{
+      await launchUrl(Uri.parse(url),);
+    } catch(e){
+      if(kDebugMode){
+        print(e);
+      }
+    }
+  }
+
+  static void showSnackBar(error, context, onRetry) {
+    final snackBar = SnackBar(
+      backgroundColor: Colors.black,
+      content: Text(error),
+      duration: const Duration(milliseconds: 3000),
+      action: SnackBarAction(
+        label: 'Retry',
+        onPressed: () {
+          onRetry();
+        },
       ),
     );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

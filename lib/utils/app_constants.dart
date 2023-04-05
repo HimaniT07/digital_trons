@@ -9,6 +9,11 @@ class AppConstants {
   static const String trendingUrl = '/trending/movie/day';
   static const String searchMovieUrl = '/search/movie';
 
+  // receiveTimeout
+  static const Duration receiveTimeout = Duration(seconds: 15000);
+
+  // connectTimeout
+  static const Duration connectionTimeout = Duration(seconds: 15000);
   /*
 Shared Pref
   */
@@ -20,6 +25,8 @@ Shared Pref
   static const String imageBasePath = 'https://image.tmdb.org/t/p/w185';
   static const String dashboardTitle = 'Treading Movie';
   static const String clearSearch = 'Clear Search';
+  static const String tmdbWebSiteUrl = 'https://www.themoviedb.org/';
+  static const String searchMovie = 'Search Movie';
 
   //validation
   static const String noInternet = 'Please check your internet connection';
