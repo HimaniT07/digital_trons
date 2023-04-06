@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/dashboard_controller.dart';
+import '../../route/app_pages.dart';
 import '../../utils/app_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../utils/color_constants.dart';
@@ -23,6 +24,16 @@ class DashboardScreen extends StatelessWidget {
           appBar: AppBar(
             title: abbBarSearchWidget(context),
           ),
+            floatingActionButton:FloatingActionButton(
+              onPressed: () {
+                Utility.launchTmdbURL(AppConstants.tmdbWebSiteUrl);
+              },
+              backgroundColor: ColorConstants.appColor,
+              child: const Icon(
+                Icons.movie_creation_outlined,
+                color: ColorConstants.white,
+              ),
+            ),
           body: Obx(() {
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -105,14 +116,14 @@ class DashboardScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         final movie =
         dashboardController.trendingMoviesArr[index];
-        return GridTile(
-          footer: GridTileBar(
-            title: Text(movie.title ?? ""),
-          ),
-          child: InkWell(
-            onTap: (){
-              Utility.launchTmdbURL(AppConstants.tmdbWebSiteUrl);
-            },
+        return InkWell(
+          onTap: (){
+            Get.toNamed(Routes.movieDetail,arguments: movie);
+          },
+          child: GridTile(
+            footer: GridTileBar(
+              title: Text(movie.title ?? ""),
+            ),
             child: CachedNetworkImage(
               imageUrl: Utility.getImageFullPath(
                   movie.posterPath ?? ""),
@@ -135,21 +146,26 @@ class DashboardScreen extends StatelessWidget {
         controller: dashboardController.scrollController,
         itemBuilder: (context, index) {
           final movie = dashboardController.trendingMoviesArr[index];
-          return Card(
-            color: ColorConstants.grayE6,
-            child: ListTile(
-              title: Text(movie.title ?? ""),
-              contentPadding:  const EdgeInsets.all(8.0),
-              leading: CachedNetworkImage(
-                imageUrl: Utility.getImageFullPath(
-                    movie.posterPath ?? ""),
-                fit: BoxFit.fill,
-                placeholder: (context, url) => const Padding(
-                  padding: EdgeInsets.all(50.0),
-                  child: CircularProgressIndicator(),
+          return InkWell(
+            onTap: (){
+              Get.toNamed(Routes.movieDetail,arguments: movie);
+            },
+            child: Card(
+              color: ColorConstants.grayE6,
+              child: ListTile(
+                title: Text(movie.title ?? ""),
+                contentPadding:  const EdgeInsets.all(8.0),
+                leading: CachedNetworkImage(
+                  imageUrl: Utility.getImageFullPath(
+                      movie.posterPath ?? ""),
+                  fit: BoxFit.fill,
+                  placeholder: (context, url) => const Padding(
+                    padding: EdgeInsets.all(50.0),
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) =>
+                  const Icon(Icons.error),
                 ),
-                errorWidget: (context, url, error) =>
-                const Icon(Icons.error),
               ),
             ),
           );

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../ui/screens/dashboard.dart';
+import '../ui/screens/movie_detail.dart';
 import '../ui/screens/splash_screen.dart';
 
 
@@ -17,6 +18,11 @@ class AppPages {
     GetPage(
         name: Routes.dashboard,
         page: () => DashboardScreen(),
+        transition: Transition.downToUp
+        ),
+    GetPage(
+        name: Routes.movieDetail,
+        page: () => MovieDetailScreen(),
         transition: Transition.downToUp
         ),
   ];

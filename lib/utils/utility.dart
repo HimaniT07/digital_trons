@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'app_constants.dart';
 
@@ -53,5 +54,15 @@ class Utility {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  static String dateConverter(String date) {
+    // Input date Format
+    final format = DateFormat("yyyy-MM-dd");
+    DateTime gettingDate = format.parse(date);
+    final DateFormat formatter = DateFormat('dd MMM yyyy');
+    // Output Date Format
+    final String formatted = formatter.format(gettingDate);
+    return formatted;
   }
 }

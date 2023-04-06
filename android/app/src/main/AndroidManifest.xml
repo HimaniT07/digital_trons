@@ -17,7 +17,7 @@
         </intent>
     </queries>
    <application
-        android:label="himani_dtron"
+        android:label="Movie DB"
         android:name="${applicationName}"
        android:usesCleartextTraffic="true"
        android:icon="@mipmap/ic_launcher">
